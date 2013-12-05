@@ -19,6 +19,12 @@ a{
 
 a:hover{
 	color: #369;
+	color: #3b5;
+  transition: 0.1s all ease-in-out;
+}
+
+a:hover{
+	color: #b15;
 }
 
 body{
@@ -171,6 +177,9 @@ header{
   color: #eee;
   background-color: #333;
 }
+.description{
+  text-align: left;
+}
 
 .thin{
   font-weight: 100;
@@ -181,7 +190,8 @@ footer{
   bottom: 0;
   width: 100%;
   height: 4em;
-  font-weight: 100;
+
+  font-weight: 200;
   line-height: 4em;
   color: #eee;
   background-color: #44ba54;

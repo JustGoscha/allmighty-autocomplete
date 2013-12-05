@@ -19,7 +19,11 @@ app.factory('MovieRetriever', function($http, $q, $timeout){
 
     $timeout(function(){
       moviedata.resolve(movies);
+<<<<<<< HEAD
     },2000);
+=======
+    },1000);
+>>>>>>> gh-pages
 
     return moviedata.promise
   }
