@@ -14,17 +14,13 @@
 
 a{
 	text-decoration: none;
-	color: #247;
-}
-
-a:hover{
-	color: #369;
-	color: #3b5;
-  transition: 0.1s all ease-in-out;
+	color: #2b7;
+  font-weight: bold; 
 }
 
 a:hover{
 	color: #b15;
+  transition: 0.1s all ease-in-out;
 }
 
 body{
@@ -168,6 +164,7 @@ body{
   display: inline-block;
   padding: 2em;
   width: 30em;
+  margin-bottom: 5em;
 }
 
 header{
