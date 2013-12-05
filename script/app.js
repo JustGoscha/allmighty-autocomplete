@@ -19,7 +19,7 @@ app.factory('MovieRetriever', function($http, $q, $timeout){
 
     $timeout(function(){
       moviedata.resolve(movies);
-    },2000);
+    },1000);
 
     return moviedata.promise
   }
