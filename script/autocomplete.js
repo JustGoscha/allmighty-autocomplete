@@ -1,6 +1,6 @@
+/* --- Made by justgoscha and licensed under MIT license --- */
+
 var app = angular.module('autocomplete', []);
-
-
 
 app.directive('autocomplete', function(){
   var index = -1;
@@ -50,7 +50,8 @@ app.directive('autocomplete', function(){
         }
 
         // function thats passed to on-type attribute gets executed
-        $scope.onType($scope.searchParam);
+        if(onType)
+          $scope.onType($scope.searchParam);
       });
 
       // for hovering over suggestions
