@@ -59,7 +59,11 @@ JavaScript:
 	var app = angular.module('app', ['autocomplete']);
 
 	app.controller('MyCtrl', function($scope, MovieRetriever){
-		$scope.movies = ["Lord of the Rings", "Drive", "Science of Sleep", "Back to the Future", "Oldboy"];
+		$scope.movies = ["Lord of the Rings",
+		 				"Drive",
+		 				"Science of Sleep",
+		 				"Back to the Future",
+		 				"Oldboy"];
 
 		// gives another movie array on change
 		$scope.updateMovies = function(typed){
