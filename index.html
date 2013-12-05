@@ -1,0 +1,39 @@
+<html ng-app="app">
+<head>
+  <title>Autocomplete Demo</title>
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/autocomplete.css">
+  <script src=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  
+</head>
+<body>
+
+<header>
+  <h1><span class="thin">AngularJS:</span> Autocomplete Demo</h1>
+</header>
+
+  
+  <div ng-controller="MyCtrl">
+    <div class="main">
+      <h2>Search for new released movies:</h2>
+      <autocomplete data="movies" on-type="doSomething"></autocomplete>
+    </div>
+
+<!--     <h1>REST answer:</h1>
+    <ul>
+      <li ng-repeat="movie in movies">{{movie}}</li>
+    </ul>  -->
+  </div>
+
+
+<footer>
+    made by <a href="http://github.com/justgoscha">justGoscha</a>
+</footer>
+
+<script type="text/javascript" src="script/autocomplete.js"></script>
+<script type="text/javascript" src="script/app.js"></script>
+
+</body>
+</html>
