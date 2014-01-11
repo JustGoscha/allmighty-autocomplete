@@ -162,7 +162,7 @@ app.directive('autocomplete', function(){
             return;
         }
 
-        if(getIndex()!==-1)
+        if(getIndex()!==-1 || keycode == key.enter)
           e.preventDefault();
       });
     },
