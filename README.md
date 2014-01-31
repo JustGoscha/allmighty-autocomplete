@@ -47,7 +47,7 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `on-type` : (optional) Pass a function that will receives changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
 
-`click-activation` : (optional) When `true`, the suggestion box open on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated when you start typing something.
+`click-activation` : (optional) When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
 ## Example
 
