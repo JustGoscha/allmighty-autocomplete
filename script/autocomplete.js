@@ -43,7 +43,7 @@ app.directive('autocomplete', function(){
 
       // starts autocompleting on typing in something
       $scope.$watch('searchParam', function(){
-        if(watching) {
+        if(watching && $scope.searchParam) {
           $scope.completing = true;
           $scope.searchFilter = $scope.searchParam;
           $scope.selectedIndex = -1;
@@ -66,9 +66,7 @@ app.directive('autocomplete', function(){
         $scope.$apply();
         watching = true;
 
-        console.log("Hover over: " + suggestion);
       }
-
 
       $scope.preSelect = this.preSelect;
 
@@ -80,11 +78,15 @@ app.directive('autocomplete', function(){
 
       // selecting a suggestion with RIGHT ARROW or ENTER
       $scope.select = function(suggestion){
-        $scope.searchParam = suggestion;
-        $scope.searchFilter = suggestion;
+        if(suggestion){
+          $scope.searchParam = suggestion;
+          $scope.searchFilter = suggestion;
+        }
         watching = false;
-        setTimeout(function(){watching = true;},1000);
         $scope.completing = false;
+        setTimeout(function(){watching = true;},1000);
+        $scope.setIndex(-1);
+
       }
 
 
@@ -96,16 +98,40 @@ app.directive('autocomplete', function(){
       setIndex = scope.setIndex; 
       getIndex = scope.getIndex;
 
-      element.keydown(function (e){
-        var key = {left: 37, up: 38, right: 39, down: 40 , enter: 13};
+      console.log();
+
+      if(attrs["clickActivation"]=="true"){
+        element[0].onclick = function(e){
+          if(!scope.searchParam){
+            scope.completing = true;
+            scope.$apply();
+          }
+        };
+      }
+
+      var key = {left: 37, up: 38, right: 39, down: 40 , enter: 13, esc: 27};
+
+      document.addEventListener("keydown", function(e){
         var keycode = e.keyCode || e.which;
 
-        l = angular.element(this).find('li').length;
+        switch (keycode){
+          case key.esc:
+            // disable suggestions on escape
+            select();
+            setIndex(-1);
+            scope.$apply();
+            e.preventDefault();
+        }
+      }, true);
+
+      element.keydown(function (e){
+        var keycode = e.keyCode || e.which;
+
+        var l = angular.element(this).find('li').length;
 
         // implementation of the up and down movement in the list of suggestions
         switch (keycode){
           case key.up:    
-            console.log("UP");
  
             index = getIndex()-1;
             if(index<-1){
@@ -118,7 +144,6 @@ app.directive('autocomplete', function(){
             }
             setIndex(index);
 
-            console.log("index:"+index);
             if(index!==-1)
             preSelect(angular.element(this).find('li')[index].innerText);
 
@@ -138,7 +163,6 @@ app.directive('autocomplete', function(){
             }
             setIndex(index);
             
-            console.log("index:"+index);
             if(index!==-1)
             preSelect(angular.element(this).find('li')[index].innerText);
 
@@ -152,11 +176,16 @@ app.directive('autocomplete', function(){
             // preSelectOff();
             if(index !== -1)
               select(angular.element(this).find('li')[index].innerText);
-            setIndex(-1);
-            
+            setIndex(-1);     
             scope.$apply();
 
-
+            break;
+          case key.esc:
+            // disable suggestions on escape
+            select();
+            setIndex(-1);
+            scope.$apply();
+            e.preventDefault();
             break;
           default:
             return;
@@ -168,7 +197,7 @@ app.directive('autocomplete', function(){
     },
     template: '<div class="autocomplete">'+
                 '<input type="text" ng-model="searchParam" placeholder="type in something" />' +
-                '<ul ng-show="searchParam && completing">' +
+                '<ul ng-show="completing">' +
                   '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
                   '($index == selectedIndex)}" ng-click="select(suggestion)">'+
@@ -183,7 +212,7 @@ app.directive('autocomplete', function(){
 app.directive('suggestion', function(){
   return {
     restrict: 'A',
-    require: '^autocomplete', // ^look von controller on parents element
+    require: '^autocomplete', // ^look for controller on parents element
     link: function(scope, element, attrs, autoCtrl){
       element.bind('mouseenter', function() {
         autoCtrl.preSelect(attrs['val']);
