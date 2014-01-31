@@ -49,6 +49,8 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `click-activation` : (optional) When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
+`placeholder`: (optional) Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
+
 ## Example
 
 HTML: 
@@ -85,8 +87,12 @@ JavaScript:
 
 **31.01.2014**:
 
-- Stop showing suggestions on pushing escape
-- select if suggestions should be shown after clicking on input with new parameter `click-activation`
++ Stop showing suggestions on pushing escape
++ select if suggestions should be shown after clicking on input with new parameter `click-activation`
+
++ Added customizable placeholders for input line
+
++ FIXED multiple autocomplete directives in one controller are now possible and behave as expected
 
 
 

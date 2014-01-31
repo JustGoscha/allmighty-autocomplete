@@ -92,14 +92,11 @@ app.directive('autocomplete', function(){
 
     },
     link: function(scope, element, attrs){
-      preSelect = scope.preSelect;
-      preSelectOff = scope.preSelectOff;
-      select = scope.select;
-      setIndex = scope.setIndex; 
-      getIndex = scope.getIndex;
 
-      console.log();
 
+      scope.placeholder=attrs["placeholder"];
+      if(scope.placeholder===null||scope.placeholder===undefined)
+        scope.placeholder = "start typing..."
       if(attrs["clickActivation"]=="true"){
         element[0].onclick = function(e){
           if(!scope.searchParam){
@@ -117,8 +114,8 @@ app.directive('autocomplete', function(){
         switch (keycode){
           case key.esc:
             // disable suggestions on escape
-            select();
-            setIndex(-1);
+            scope.select();
+            scope.setIndex(-1);
             scope.$apply();
             e.preventDefault();
         }
@@ -133,38 +130,38 @@ app.directive('autocomplete', function(){
         switch (keycode){
           case key.up:    
  
-            index = getIndex()-1;
+            index = scope.getIndex()-1;
             if(index<-1){
               index = l-1;
             } else if (index >= l ){
               index = -1;
-              setIndex(index);
-              preSelectOff();
+              scope.setIndex(index);
+              scope.preSelectOff();
               break;
             }
-            setIndex(index);
+            scope.setIndex(index);
 
             if(index!==-1)
-            preSelect(angular.element(this).find('li')[index].innerText);
+            scope.preSelect(angular.element(this).find('li')[index].innerText);
 
             scope.$apply();
 
             break;
           case key.down:
-            index = getIndex()+1;
+            index = scope.getIndex()+1;
             if(index<-1){
               index = l-1;
             } else if (index >= l ){
               index = -1;
-              setIndex(index);
-              preSelectOff();
+              scope.setIndex(index);
+              scope.preSelectOff();
               scope.$apply();
               break;
             }
-            setIndex(index);
+            scope.setIndex(index);
             
             if(index!==-1)
-            preSelect(angular.element(this).find('li')[index].innerText);
+            scope.preSelect(angular.element(this).find('li')[index].innerText);
 
             break;
           case key.left:    
@@ -172,18 +169,18 @@ app.directive('autocomplete', function(){
           case key.right:  
           case key.enter:  
 
-            index = getIndex();
-            // preSelectOff();
+            index = scope.getIndex();
+            // scope.preSelectOff();
             if(index !== -1)
-              select(angular.element(this).find('li')[index].innerText);
-            setIndex(-1);     
+              scope.select(angular.element(this).find('li')[index].innerText);
+            scope.setIndex(-1);     
             scope.$apply();
 
             break;
           case key.esc:
             // disable suggestions on escape
-            select();
-            setIndex(-1);
+            scope.select();
+            scope.setIndex(-1);
             scope.$apply();
             e.preventDefault();
             break;
@@ -191,12 +188,12 @@ app.directive('autocomplete', function(){
             return;
         }
 
-        if(getIndex()!==-1 || keycode == key.enter)
+        if(scope.getIndex()!==-1 || keycode == key.enter)
           e.preventDefault();
       });
     },
     template: '<div class="autocomplete">'+
-                '<input type="text" ng-model="searchParam" placeholder="type in something" />' +
+                '<input type="text" ng-model="searchParam" placeholder="{{placeholder}}" />' +
                 '<ul ng-show="completing">' +
                   '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
