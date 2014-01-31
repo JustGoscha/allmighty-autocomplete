@@ -34,8 +34,6 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
     $scope.movies = data;
   });
 
-
-  $scope.books = ["1984","Animal Farm","Brave New World","Harry Potter and the Sorcerer's Stone (Harry Potter, #1)","Lolita","Lord of the Flies","Of Mice and Men","One Hundred Years of Solitude","The Catcher in the Rye","The Diary of a Young Girl","The Grapes of Wrath","The Great Gatsby","The Hitchhiker's Guide to the Galaxy (Hitchhiker's Guide, #1)","The Hobbit","The Little Prince","The Lord of the Rings (The Lord of the Rings, #1-3)","The Restaurant at the End of the Universe (Hitchhiker's Guide, #2)","To Kill a Mockingbird"];
   $scope.getmovies = function(){
     return $scope.movies;
   }

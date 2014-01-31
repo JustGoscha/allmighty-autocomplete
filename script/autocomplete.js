@@ -93,8 +93,10 @@ app.directive('autocomplete', function(){
     },
     link: function(scope, element, attrs){
 
-      console.log();
 
+      scope.placeholder=attrs["placeholder"];
+      if(scope.placeholder===null||scope.placeholder===undefined)
+        scope.placeholder = "start typing..."
       if(attrs["clickActivation"]=="true"){
         element[0].onclick = function(e){
           if(!scope.searchParam){
@@ -190,17 +192,17 @@ app.directive('autocomplete', function(){
           e.preventDefault();
       });
     },
-    template: '<div class="autocomplete">'+
-                '<input type="text" ng-model="searchParam" placeholder="type in something" />' +
-                '<ul ng-show="completing">' +
-                  '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
-                  'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
-                  '($index == selectedIndex)}" ng-click="select(suggestion)">'+
-                    '{{suggestion}}'+
-                  '</li>'+
-                '</ul>'+
-              '</div>'
-    // templateUrl: 'script/ac_template.html'
+    // template: '<div class="autocomplete">'+
+    //             '<input type="text" ng-model="searchParam" placeholder="{{placeholder}}" />' +
+    //             '<ul ng-show="completing">' +
+    //               '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
+    //               'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
+    //               '($index == selectedIndex)}" ng-click="select(suggestion)">'+
+    //                 '{{suggestion}}'+
+    //               '</li>'+
+    //             '</ul>'+
+    //           '</div>'
+    templateUrl: 'script/ac_template.html'
   }
 });
 
