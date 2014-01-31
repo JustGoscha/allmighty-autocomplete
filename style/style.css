@@ -1,0 +1,207 @@
+@CHARSET "UTF-8";
+
+@font-face { /* Entypo pictograms by Daniel Bruce — www.entypo.com */
+	font-family: 'Entypo';
+	src: url('../assets/entypo.ttf') format('truetype'),
+		url('../assets/entypo.eot') format('eot');
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+a{
+	text-decoration: none;
+	color: #2b7;
+  font-weight: bold; 
+}
+
+a:hover{
+	color: #b15;
+  transition: 0.1s all ease-in-out;
+}
+
+body{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	min-height:100%;
+	height: 100%;
+	line-height: 1.5em;
+	color: #333333;
+	background-color: #ffffff;	
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1.5em;
+  color: inherit;
+  text-rendering: optimizelegibility;
+}
+
+/* taken from bootstrap */
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+a:hover,
+a:active {
+  outline: 0;
+}
+
+img {
+  /* Responsive images (ensure images don't scale beyond their parents) */
+
+  max-width: 100%;
+  /* Part 1: Set a maxium relative to the parent */
+
+  width: auto\9;
+  /* IE7-8 need help adjusting responsive images */
+
+  height: auto;
+  /* Part 2: Scale the height according to the width, otherwise you get stretching */
+
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
+ul>li{
+	list-style:none;
+}
+
+/* Generic classes */
+.hide { /* Hide stuff without resorting to display:none; */
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	line-height: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.hide:after { /* Hide stuff without resorting to display:none; */
+	visibility: hidden !important;
+	width: 0 !important;
+	height: 0 !important;
+	line-height: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+div{
+  text-align: center;
+}
+
+body{
+  background: url('../sprinkles.png') repeat;
+}
+.main{
+  display: inline-block;
+  padding: 2em;
+  width: 30em;
+  margin-bottom: 5em;
+}
+
+header{
+  width: 100%;
+  height: 6em;
+  padding: 0.7em 1em 0.5em 2em;
+  color: #eee;
+  background-color: #333;
+}
+.description{
+  text-align: left;
+}
+
+.thin{
+  font-weight: 100;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 4em;
+
+  font-weight: 200;
+  line-height: 4em;
+  color: #eee;
+  background-color: #44ba54;
+  text-align: center;
+}
+
+footer a{
+  color: #333;
+  font-weight: bold;
+}
+
+footer a:hover{
+  color: #b15;
+  font-weight: bold;
+}
+
