@@ -121,6 +121,16 @@ app.directive('autocomplete', function(){
             e.preventDefault();
         }
       }, true);
+      
+      document.addEventListener("blur", function(e){
+        // disable suggestions on blur
+        // we do a timeout to prevent hiding it before a click event is registered
+        setTimeout(function() {
+          scope.select();
+          scope.setIndex(-1);
+          scope.$apply();
+        }, 200);
+      }, true);
 
       element.keydown(function (e){
         var keycode = e.keyCode || e.which;
