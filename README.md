@@ -85,6 +85,10 @@ JavaScript:
 
 ## Change log
 
+**13.92.2014**
+
++ ng-model can now be used outside to obtain the current search parameter
+
 **31.01.2014**:
 
 + Stop showing suggestions on pushing escape
