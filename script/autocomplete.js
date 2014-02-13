@@ -142,7 +142,7 @@ app.directive('autocomplete', function(){
             scope.setIndex(index);
 
             if(index!==-1)
-            scope.preSelect(angular.element(this).find('li')[index].innerText);
+              scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
             scope.$apply();
 
@@ -161,7 +161,7 @@ app.directive('autocomplete', function(){
             scope.setIndex(index);
             
             if(index!==-1)
-            scope.preSelect(angular.element(this).find('li')[index].innerText);
+              scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
             break;
           case key.left:    
@@ -172,7 +172,7 @@ app.directive('autocomplete', function(){
             index = scope.getIndex();
             // scope.preSelectOff();
             if(index !== -1)
-              scope.select(angular.element(this).find('li')[index].innerText);
+              scope.select(angular.element(angular.element(this).find('li')[index]).text());
             scope.setIndex(-1);     
             scope.$apply();
 
