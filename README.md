@@ -94,9 +94,7 @@ JavaScript:
 
 + Stop showing suggestions on pushing escape
 + select if suggestions should be shown after clicking on input with new parameter `click-activation`
-
 + Added customizable placeholders for input line
-
 + FIXED multiple autocomplete directives in one controller are now possible and behave as expected
 
 
