@@ -8,6 +8,7 @@ app.directive('autocomplete', function(){
   return {
     restrict: 'E',
     scope: {
+      searchParam: '=ngModel',
       suggestions: '=data',
       onType: '=onType'
     },
