@@ -85,7 +85,7 @@ JavaScript:
 
 ## Change log
 
-**13.92.2014**
+**13.02.2014**
 
 + ng-model can now be used outside to obtain the current search parameter
 + hiding suggestions on blur
