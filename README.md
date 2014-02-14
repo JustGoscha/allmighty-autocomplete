@@ -9,10 +9,9 @@ Checkout [the demo](http://justgoscha.github.io/allmighty-autocomplete/) to see 
 
 ## Setup
 
-To use it you need jQuery and of course AngularJS, so make sure these are loaded first. I always like to use Google's CDN for that:
+To use it you need of course AngularJS, so make sure it is loaded first. I always like to use Google's CDN for that:
 
 ```html
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 ```
 
@@ -85,13 +84,15 @@ JavaScript:
 
 ## Change log
 
-**13.02.2014**
+***14.02.2014***
++ got rid of jQuery dependency
+
+***13.02.2014***
 
 + ng-model can now be used outside to obtain the current search parameter
 + hiding suggestions on blur
 
-**31.01.2014**:
-
+***31.01.2014***
 + Stop showing suggestions on pushing escape
 + select if suggestions should be shown after clicking on input with new parameter `click-activation`
 + Added customizable placeholders for input line
