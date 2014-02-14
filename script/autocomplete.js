@@ -121,7 +121,7 @@ app.directive('autocomplete', function(){
         }
       }, true);
 
-      element.keydown(function (e){
+      element[0].addEventListener("keydown",function (e){
         var keycode = e.keyCode || e.which;
 
         var l = angular.element(this).find('li').length;
