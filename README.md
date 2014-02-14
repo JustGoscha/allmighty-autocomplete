@@ -50,12 +50,14 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `placeholder`: (optional) Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
 
+`ng-model`: What you typed in will be in this variable and accessible in the $scope of the controller.
+
 ## Example
 
 HTML: 
 ```html
     <div ng-controller="MyCtrl">  
-      <autocomplete data="movies" on-type="updateMovies"></autocomplete>
+      <autocomplete ng-model="yourchoice" data="movies" on-type="updateMovies"></autocomplete>
     </div>
 ```
 
