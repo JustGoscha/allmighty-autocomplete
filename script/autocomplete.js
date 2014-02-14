@@ -8,6 +8,7 @@ app.directive('autocomplete', function(){
   return {
     restrict: 'E',
     scope: {
+      searchParam: '=ngModel',
       suggestions: '=data',
       onType: '=onType'
     },
@@ -120,6 +121,16 @@ app.directive('autocomplete', function(){
             e.preventDefault();
         }
       }, true);
+      
+      document.addEventListener("blur", function(e){
+        // disable suggestions on blur
+        // we do a timeout to prevent hiding it before a click event is registered
+        setTimeout(function() {
+          scope.select();
+          scope.setIndex(-1);
+          scope.$apply();
+        }, 200);
+      }, true);
 
       element[0].addEventListener("keydown",function (e){
         var keycode = e.keyCode || e.which;
@@ -142,7 +153,7 @@ app.directive('autocomplete', function(){
             scope.setIndex(index);
 
             if(index!==-1)
-            scope.preSelect(angular.element(this).find('li')[index].innerText);
+              scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
             scope.$apply();
 
@@ -161,7 +172,7 @@ app.directive('autocomplete', function(){
             scope.setIndex(index);
             
             if(index!==-1)
-            scope.preSelect(angular.element(this).find('li')[index].innerText);
+              scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
             break;
           case key.left:    
@@ -172,7 +183,7 @@ app.directive('autocomplete', function(){
             index = scope.getIndex();
             // scope.preSelectOff();
             if(index !== -1)
-              scope.select(angular.element(this).find('li')[index].innerText);
+              scope.select(angular.element(angular.element(this).find('li')[index]).text());
             scope.setIndex(-1);     
             scope.$apply();
 
