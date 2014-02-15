@@ -1,0 +1,18 @@
+{
+  "name": "allmighty-autocomplete",
+  "version": "1.0.0",
+  "homepage": "http://justgoscha.github.io/allmighty-autocomplete/",
+  "authors": [
+    "Goscha Graf <justgoscha@gmail.com>"
+  ],
+  "description": "Simple to use autocomplete directive in a module for AngularJs!",
+  "keywords": [
+    "autocomplete",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "main": "./script/autocomplete.js",
+  "ignore": [
+    "ac_template.html"
+  ]
+}
