@@ -94,10 +94,24 @@ app.directive('autocomplete', function(){
     },
     link: function(scope, element, attrs){
 
+      var attr = '';
 
-      scope.placeholder=attrs["placeholder"];
-      if(scope.placeholder===null||scope.placeholder===undefined)
-        scope.placeholder = "start typing..."
+      // Default atts
+      scope.attrs = {
+        "placeholder": "start typying...",
+        "class": "",
+        "id": ""
+      };
+
+      for (a in attrs) {
+        attr = a.replace('attr', '').toLowerCase();
+        // add attribute overriding defaults
+        // and preventing duplication
+        if (a.indexOf('attr') === 0) {
+          scope.attrs[attr] = attrs[a];
+        }
+      }
+
       if(attrs["clickActivation"]=="true"){
         element[0].onclick = function(e){
           if(!scope.searchParam){
@@ -204,7 +218,7 @@ app.directive('autocomplete', function(){
       });
     },
     template: '<div class="autocomplete">'+
-                '<input type="text" ng-model="searchParam" placeholder="{{placeholder}}" />' +
+                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}" class="{{attrs.class}}" id="{{attrs.id}}"/>' +
                 '<ul ng-show="completing">' +
                   '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
