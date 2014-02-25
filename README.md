@@ -48,9 +48,13 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `click-activation` : (optional) When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
-`placeholder`: (optional) Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
-
 `ng-model`: What you typed in will be in this variable and accessible in the $scope of the controller.
+
+`attr-placeholder`: (optional) Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
+
+`attr-class`: Change the class of the `div` containing the `input` and suggestions elements, allowing you to change their style according to your needs.
+
+`attr-id`: Change the id of the containing `<div>`, see `attrs-class`.
 
 ## Example
 
@@ -85,6 +89,10 @@ JavaScript:
 ```
 
 ## Change log
+
+***25.02.2014***
++ `attr-class` & `attr-id` allow you to choose class and id of the div where the autocomplete is contained, makes it more customizable
++ `placeholder` renamed into `attr-placeholder`
 
 ***14.02.2014***
 + got rid of jQuery dependency
