@@ -33,3 +33,12 @@
   width: 100%;
   background-color: #4bf;
 }
+
+.autocomplete .highlight {
+  background-color: #E2E2E2;
+}
+
+.autocomplete li.active .highlight {
+  background: #666;
+  color: #fff;
+}
