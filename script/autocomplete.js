@@ -236,11 +236,13 @@ app.filter('highlight', function ($sce) {
 
   return function (input, searchParam) {
 
-    var words = searchParam.split(/\ /).join('|'),
-        exp = new RegExp("(" + words + ")", "gi");
+    if (searchParam) {
+      var words = searchParam.split(/\ /).join('|'),
+          exp = new RegExp("(" + words + ")", "gi");
 
-    if (words.length) {
-      input = $sce.getTrustedHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
+      if (words.length) {
+        input = $sce.getTrustedHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
+      }
     }
 
     return input;
