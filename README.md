@@ -12,7 +12,7 @@ Checkout [the demo](http://justgoscha.github.io/allmighty-autocomplete/) to see 
 To use it you need of course AngularJS, so make sure it is loaded first. I always like to use Google's CDN for that:
 
 ```html
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
 ```
 
 Also you should load the stylesheet of the autocomplete:
