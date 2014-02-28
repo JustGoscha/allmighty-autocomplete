@@ -222,13 +222,33 @@ app.directive('autocomplete', function(){
                 '<ul ng-show="completing">' +
                   '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
-                  '($index == selectedIndex)}" ng-click="select(suggestion)">'+
+                  '($index == selectedIndex)}" ng-click="select(suggestion)" '+
+                  'ng-bind-html="suggestion | highlight:searchParam">'+
                     '{{suggestion}}'+
                   '</li>'+
                 '</ul>'+
               '</div>'
     // templateUrl: 'script/ac_template.html'
   }
+});
+
+app.filter('highlight', function ($sce) {
+
+  return function (input, searchParam) {
+
+    if (searchParam) {
+      var words = searchParam.split(/\ /).join('|'),
+          exp = new RegExp("(" + words + ")", "gi");
+
+      if (words.length) {
+        input = $sce.getTrustedHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
+      }
+    }
+
+    return input;
+
+  }
+
 });
 
 app.directive('suggestion', function(){
