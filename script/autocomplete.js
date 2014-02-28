@@ -224,7 +224,6 @@ app.directive('autocomplete', function(){
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
                   '($index == selectedIndex)}" ng-click="select(suggestion)" '+
                   'ng-bind-html="suggestion | highlight:searchParam">'+
-                    '{{suggestion}}'+
                   '</li>'+
                 '</ul>'+
               '</div>'
@@ -241,7 +240,7 @@ app.filter('highlight', function ($sce) {
           exp = new RegExp("(" + words + ")", "gi");
 
       if (words.length) {
-        input = $sce.getTrustedHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
+        input = $sce.trustAsHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
       }
     }
 
