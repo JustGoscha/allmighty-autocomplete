@@ -94,6 +94,9 @@ JavaScript:
 
 ## Change log
 
+***07.03.2014***
++ `attr-input-class` & `attr-input-id` allow you to choose class and id of the input field. Handy when wanting to add bootstrap styles to the input field
+
 ***25.02.2014***
 + `attr-class` & `attr-id` allow you to choose class and id of the div where the autocomplete is contained, makes it more customizable
 + `placeholder` renamed into `attr-placeholder`
