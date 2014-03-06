@@ -54,7 +54,11 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `attr-class`: Change the class of the `div` containing the `input` and suggestions elements, allowing you to change their style according to your needs.
 
-`attr-id`: Change the id of the containing `<div>`, see `attrs-class`.
+`attr-id`: Change the id of the containing `div` element, see `attrs-class`.
+
+`attr-input-class`: Set the class of the `input` element, allowing you to style the input field directly.
+
+`attr-input-id`: Change the id of the `input` element, see `attrs-input-class`.
 
 ## Example
 
