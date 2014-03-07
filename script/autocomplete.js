@@ -13,7 +13,6 @@ app.directive('autocomplete', function(){
       onType: '=onType'
     },
     controller: function($scope, $element, $attrs){
-
       $scope.searchParam;
 
       // with the searchFilter the suggestions get filtered
@@ -100,7 +99,9 @@ app.directive('autocomplete', function(){
       scope.attrs = {
         "placeholder": "start typing...",
         "class": "",
-        "id": ""
+        "id": "",
+        "inputclass": "",
+        "inputid": ""
       };
 
       for (a in attrs) {
@@ -218,7 +219,7 @@ app.directive('autocomplete', function(){
       });
     },
     template: '<div class="autocomplete {{attrs.class}}" id="{{attrs.id}}">'+
-                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}"/>' +
+                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}" class="{{attrs.inputclass}}" id="{{attrs.inputid}}"/>' +
                 '<ul ng-show="completing">' +
                   '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
