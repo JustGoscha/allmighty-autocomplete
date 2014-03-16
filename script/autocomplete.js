@@ -104,7 +104,7 @@ app.directive('autocomplete', function(){
         "inputid": ""
       };
 
-      for (a in attrs) {
+      for (var a in attrs) {
         attr = a.replace('attr', '').toLowerCase();
         // add attribute overriding defaults
         // and preventing duplication
