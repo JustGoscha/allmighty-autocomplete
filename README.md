@@ -12,7 +12,7 @@ Checkout [the demo](http://justgoscha.github.io/allmighty-autocomplete/) to see 
 To use it you need of course AngularJS, so make sure it is loaded first. I always like to use Google's CDN for that:
 
 ```html
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
 ```
 
 Also you should load the stylesheet of the autocomplete:
@@ -44,17 +44,21 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `data` : Pass an array to the autocomplete directive. Should be accessible in the $scope of your controller.
 
-`on-type` : (optional) Pass a function that will receives changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
+`on-type` : *(optional)* Pass a function that will receives changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
 
-`click-activation` : (optional) When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
+`click-activation` : *(optional)* When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
 `ng-model`: What you typed in will be in this variable and accessible in the $scope of the controller.
 
-`attr-placeholder`: (optional) Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
+`attr-placeholder`: *(optional)* Sets desired text as placeholder into the input element of autocomplete directive. By default it's "start typing..."
 
-`attr-class`: Change the class of the `div` containing the `input` and suggestions elements, allowing you to change their style according to your needs.
+`attr-class`: *(optional)* Change the class of the `div` containing the `input` and suggestions elements, allowing you to change their style according to your needs.
 
-`attr-id`: Change the id of the containing `<div>`, see `attrs-class`.
+`attr-id`: *(optional)* Change the id of the containing `div` element, see `attrs-class`.
+
+`attr-input-class`: *(optional)* Set the class of the `input` element, allowing you to style the input field directly.
+
+`attr-input-id`: *(optional)* Change the id of the `input` element, see `attrs-input-class`.
 
 ## Example
 
@@ -89,6 +93,9 @@ JavaScript:
 ```
 
 ## Change log
+
+***07.03.2014***
++ `attr-input-class` & `attr-input-id` allow you to choose class and id of the input field. Handy when wanting to add bootstrap styles to the input field
 
 ***25.02.2014***
 + `attr-class` & `attr-id` allow you to choose class and id of the div where the autocomplete is contained, makes it more customizable

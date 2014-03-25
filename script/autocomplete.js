@@ -13,7 +13,6 @@ app.directive('autocomplete', function(){
       onType: '=onType'
     },
     controller: function($scope, $element, $attrs){
-
       $scope.searchParam;
 
       // with the searchFilter the suggestions get filtered
@@ -98,12 +97,14 @@ app.directive('autocomplete', function(){
 
       // Default atts
       scope.attrs = {
-        "placeholder": "start typying...",
+        "placeholder": "start typing...",
         "class": "",
-        "id": ""
+        "id": "",
+        "inputclass": "",
+        "inputid": ""
       };
 
-      for (a in attrs) {
+      for (var a in attrs) {
         attr = a.replace('attr', '').toLowerCase();
         // add attribute overriding defaults
         // and preventing duplication
@@ -218,9 +219,9 @@ app.directive('autocomplete', function(){
       });
     },
     template: '<div class="autocomplete {{attrs.class}}" id="{{attrs.id}}">'+
-                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}"/>' +
+                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}" class="{{attrs.inputclass}}" id="{{attrs.inputid}}"/>' +
                 '<ul ng-show="completing">' +
-                  '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\'" '+
+                  '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"'+
                   'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
                   '($index == selectedIndex)}" ng-click="select(suggestion)" '+
                   'ng-bind-html="suggestion | highlight:searchParam">'+
