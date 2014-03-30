@@ -42,7 +42,11 @@ app.directive('autocomplete', function(){
       $scope.completing = false;
 
       // starts autocompleting on typing in something
-      $scope.$watch('searchParam', function(){
+      $scope.$watch('searchParam', function(newValue, oldValue){
+        if(newValue === oldValue) {
+          return; // nothing to do here
+        }
+        
         if(watching && $scope.searchParam) {
           $scope.completing = true;
           $scope.searchFilter = $scope.searchParam;
