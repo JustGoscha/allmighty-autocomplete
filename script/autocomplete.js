@@ -12,7 +12,7 @@ app.directive('autocomplete', function(){
       suggestions: '=data',
       onType: '=onType'
     },
-    controller: function($scope, $element, $attrs){
+    controller: ['$scope', function($scope){
       $scope.searchParam;
 
       // with the searchFilter the suggestions get filtered
@@ -94,7 +94,7 @@ app.directive('autocomplete', function(){
       }
 
 
-    },
+    }],
     link: function(scope, element, attrs){
 
       var attr = '';
@@ -237,7 +237,7 @@ app.directive('autocomplete', function(){
   }
 });
 
-app.filter('highlight', function ($sce) {
+app.filter('highlight', ['$sce', function ($sce) {
 
   return function (input, searchParam) {
 
@@ -254,7 +254,7 @@ app.filter('highlight', function ($sce) {
 
   }
 
-});
+}]);
 
 app.directive('suggestion', function(){
   return {
