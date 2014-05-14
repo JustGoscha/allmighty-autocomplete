@@ -2,7 +2,7 @@
 
 var app = angular.module('autocomplete', []);
 
-app.directive('autocomplete', function(){
+app.directive('autocomplete', function() {
   var index = -1;
 
   return {
@@ -13,27 +13,22 @@ app.directive('autocomplete', function(){
       onType: '=onType'
     },
     controller: ['$scope', function($scope){
-      $scope.searchParam;
-
-      // with the searchFilter the suggestions get filtered
-      $scope.searchFilter;
-
       // the index of the suggestions that's currently selected
       $scope.selectedIndex = -1;
 
       // set new index
       $scope.setIndex = function(i){
         $scope.selectedIndex = parseInt(i);
-      }
+      };
 
       this.setIndex = function(i){
         $scope.setIndex(i);
         $scope.$apply();
-      }
+      };
 
       $scope.getIndex = function(i){
         return $scope.selectedIndex;
-      }
+      };
 
       // watches if the parameter filter should be changed
       var watching = true;
@@ -70,13 +65,13 @@ app.directive('autocomplete', function(){
         $scope.$apply();
         watching = true;
 
-      }
+      };
 
       $scope.preSelect = this.preSelect;
 
       this.preSelectOff = function(){
         watching = true;
-      }
+      };
 
       $scope.preSelectOff = this.preSelectOff;
 
@@ -90,8 +85,7 @@ app.directive('autocomplete', function(){
         $scope.completing = false;
         setTimeout(function(){watching = true;},1000);
         $scope.setIndex(-1);
-
-      }
+      };
 
 
     }],
@@ -117,7 +111,7 @@ app.directive('autocomplete', function(){
         }
       }
 
-      if(attrs["clickActivation"]=="true"){
+      if (attrs.clickActivation) {
         element[0].onclick = function(e){
           if(!scope.searchParam){
             scope.completing = true;
@@ -189,7 +183,7 @@ app.directive('autocomplete', function(){
               break;
             }
             scope.setIndex(index);
-            
+
             if(index!==-1)
               scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
@@ -203,7 +197,7 @@ app.directive('autocomplete', function(){
             // scope.preSelectOff();
             if(index !== -1)
               scope.select(angular.element(angular.element(this).find('li')[index]).text());
-            scope.setIndex(-1);     
+            scope.setIndex(-1);
             scope.$apply();
 
             break;
@@ -222,38 +216,25 @@ app.directive('autocomplete', function(){
           e.preventDefault();
       });
     },
-    template: '<div class="autocomplete {{attrs.class}}" id="{{attrs.id}}">'+
-                '<input type="text" ng-model="searchParam" placeholder="{{attrs.placeholder}}" class="{{attrs.inputclass}}" id="{{attrs.inputid}}"/>' +
-                '<ul ng-show="completing">' +
-                  '<li suggestion ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"'+
-                  'index="{{$index}}" val="{{suggestion}}" ng-class="{active: '+
-                  '($index == selectedIndex)}" ng-click="select(suggestion)" '+
-                  'ng-bind-html="suggestion | highlight:searchParam">'+
-                    '{{suggestion}}' +
-                  '</li>'+
-                '</ul>'+
-              '</div>'
-    // templateUrl: 'script/ac_template.html'
-  }
+    templateUrl: 'script/ac_template.html'
+  };
 });
 
 app.filter('highlight', ['$sce', function ($sce) {
-
   return function (input, searchParam) {
-
+    if (typeof input === 'function') return '';
     if (searchParam) {
-      var words = searchParam.split(/\ /).join('|'),
-          exp = new RegExp("(" + words + ")", "gi");
-
+      var words = '(' +
+            searchParam.split(/\ /).join(' |') + '|' +
+            searchParam.split(/\ /).join('|') +
+          ')',
+          exp = new RegExp(words, 'gi');
       if (words.length) {
-        input = $sce.trustAsHtml(input.replace(exp, "<span class=\"highlight\">$1</span>")); 
+        input = input.replace(exp, "<span class=\"highlight\">$1</span>");
       }
     }
-
-    return input;
-
-  }
-
+    return $sce.trustAsHtml(input);
+  };
 }]);
 
 app.directive('suggestion', function(){
@@ -262,13 +243,13 @@ app.directive('suggestion', function(){
     require: '^autocomplete', // ^look for controller on parents element
     link: function(scope, element, attrs, autoCtrl){
       element.bind('mouseenter', function() {
-        autoCtrl.preSelect(attrs['val']);
-        autoCtrl.setIndex(attrs['index']);
+        autoCtrl.preSelect(attrs.val);
+        autoCtrl.setIndex(attrs.index);
       });
 
       element.bind('mouseleave', function() {
         autoCtrl.preSelectOff();
       });
     }
-  }
+  };
 });
