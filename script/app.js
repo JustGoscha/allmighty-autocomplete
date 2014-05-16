@@ -46,4 +46,8 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
     });
   }
 
+  $scope.doSomethingElse = function(suggestion){
+    console.log("Suggestion selected: " + suggestion );
+  }
+
 });

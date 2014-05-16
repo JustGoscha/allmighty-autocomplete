@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/autocomplete.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-  
+
 </head>
 <body>
 
@@ -12,14 +12,14 @@
   <h1><span class="thin">AngularJS:</span> Allmighty-Autocomplete Demo</h1>
 </header>
 
-  
+
   <div ng-controller="MyCtrl">
     <div class="main">
       <h2>Search for new released movies:</h2>
-      <autocomplete ng-model="result" attr-placeholder="type to search movies..." click-activation="true" data="movies" on-type="doSomething"></autocomplete>
+      <autocomplete ng-model="result" attr-placeholder="type to search movies..." click-activation="true" data="movies" on-type="doSomething" on-select="doSomethingElse"></autocomplete>
       <br>
       <div class="description">
-        This is a simple autocomplete directive for AngularJS, packaged in a Angular module. You can check out the source code or download it here: 
+        This is a simple autocomplete directive for AngularJS, packaged in a Angular module. You can check out the source code or download it here:
         <br><br>
         <a href="https://github.com/JustGoscha/allmighty-autocomplete">Allmigty-Autocomplete on GitHub</a>
       </div>
