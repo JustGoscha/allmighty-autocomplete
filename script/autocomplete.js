@@ -10,7 +10,8 @@ app.directive('autocomplete', function() {
     scope: {
       searchParam: '=ngModel',
       suggestions: '=data',
-      onType: '=onType'
+      onType: '=onType',
+      onSelect: '=onSelect'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -58,7 +59,7 @@ app.directive('autocomplete', function() {
 
         watching = false;
 
-        // this line determines if it is shown 
+        // this line determines if it is shown
         // in the input field before it's selected:
         //$scope.searchParam = suggestion;
 
@@ -80,6 +81,8 @@ app.directive('autocomplete', function() {
         if(suggestion){
           $scope.searchParam = suggestion;
           $scope.searchFilter = suggestion;
+          if($scope.onSelect)
+            $scope.onSelect(suggestion);
         }
         watching = false;
         $scope.completing = false;
@@ -134,7 +137,7 @@ app.directive('autocomplete', function() {
             e.preventDefault();
         }
       }, true);
-      
+
       document.addEventListener("blur", function(e){
         // disable suggestions on blur
         // we do a timeout to prevent hiding it before a click event is registered
@@ -152,8 +155,8 @@ app.directive('autocomplete', function() {
 
         // implementation of the up and down movement in the list of suggestions
         switch (keycode){
-          case key.up:    
- 
+          case key.up:
+
             index = scope.getIndex()-1;
             if(index<-1){
               index = l-1;
@@ -188,10 +191,10 @@ app.directive('autocomplete', function() {
               scope.preSelect(angular.element(angular.element(this).find('li')[index]).text());
 
             break;
-          case key.left:    
+          case key.left:
             break;
-          case key.right:  
-          case key.enter:  
+          case key.right:
+          case key.enter:
 
             index = scope.getIndex();
             // scope.preSelectOff();

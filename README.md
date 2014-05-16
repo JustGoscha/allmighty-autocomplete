@@ -2,8 +2,8 @@ allmighty-autocomplete
 ======================
 
 Simple to use autocomplete directive in a module for AngularJS!
-Supports arrow keys to traverse suggestions as well as mouse input. 
-You can load the suggestions from a remote REST API, it also supports promises. 
+Supports arrow keys to traverse suggestions as well as mouse input.
+You can load the suggestions from a remote REST API, it also supports promises.
 
 Checkout [the demo](http://justgoscha.github.io/allmighty-autocomplete/) to see what it does.
 
@@ -36,7 +36,7 @@ var app = angular.module('app', ['autocomplete']);
 
 ## Usage
 
-If you now want an autocomplete you can just use the tag `<autocomplete>` tag in your HTML. With the `data` parameter you can pass in an array that will be used for autocompletion. You need to pass there something which is available in the $scope of your controller. 
+If you now want an autocomplete you can just use the tag `<autocomplete>` tag in your HTML. With the `data` parameter you can pass in an array that will be used for autocompletion. You need to pass there something which is available in the $scope of your controller.
 
 You can also pass a function that receives changes with the `on-type` attribute. This is useful if you need to load external resources from a REST API, for example, you cna then upload the array you passed into `data` and it will automatically use the changed array.
 
@@ -44,7 +44,9 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `data` : Pass an array to the autocomplete directive. Should be accessible in the $scope of your controller.
 
-`on-type` : *(optional)* Pass a function that will receives changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
+`on-type` : *(optional)* Pass a function that will receive changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
+
+`on-select` : *(optional)* Pass a function that will receive changes, when a suggestion is selected. It passes the full string of the suggestion.
 
 `click-activation` : *(optional)* When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
@@ -62,9 +64,9 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 ## Example
 
-HTML: 
+HTML:
 ```html
-    <div ng-controller="MyCtrl">  
+    <div ng-controller="MyCtrl">
       <autocomplete ng-model="yourchoice" data="movies" on-type="updateMovies"></autocomplete>
     </div>
 ```
