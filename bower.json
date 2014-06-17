@@ -11,7 +11,7 @@
     "angularjs"
   ],
   "license": "MIT",
-  "main": "./script/autocomplete.js",
+  "main": ["./script/autocomplete.js", "./style/autocomplete.css"],
   "ignore": [
     "ac_template.html"
   ]
