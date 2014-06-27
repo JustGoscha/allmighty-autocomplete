@@ -1,6 +1,6 @@
 {
   "name": "allmighty-autocomplete",
-  "version": "1.0.140307",
+  "version": "1.0.140627",
   "homepage": "http://justgoscha.github.io/allmighty-autocomplete/",
   "authors": [
     "Goscha Graf <justgoscha@gmail.com>"
@@ -11,8 +11,9 @@
     "angularjs"
   ],
   "license": "MIT",
-  "main": ["./script/autocomplete.js", "./style/autocomplete.css"],
-  "ignore": [
-    "ac_template.html"
+  "main": [
+    "./script/autocomplete.js",
+    "./script/ac_template.html",
+    "./style/autocomplete.css"
   ]
 }
