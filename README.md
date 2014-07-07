@@ -38,7 +38,7 @@ var app = angular.module('app', ['autocomplete']);
 
 If you now want an autocomplete you can just use the tag `<autocomplete>` tag in your HTML. With the `data` parameter you can pass in an array that will be used for autocompletion. You need to pass there something which is available in the $scope of your controller.
 
-You can also pass a function that receives changes with the `on-type` attribute. This is useful if you need to load external resources from a REST API, for example, you cna then upload the array you passed into `data` and it will automatically use the changed array.
+You can also pass a function that receives changes with the `on-type` attribute. This is useful if you need to load external resources from a REST API, for example, you can then upload the array you passed into `data` and it will automatically use the changed array.
 
 ### Attributes
 
