@@ -18,7 +18,7 @@ app.directive('autocomplete', function() {
       // the index of the suggestions that's currently selected
       $scope.selectedIndex = -1;
 
-      // // set default limit of suggestions when undefined
+      // set default limit of suggestions when undefined
       if($scope.limit === undefined) {
         $scope.limit = Infinity;
       }
