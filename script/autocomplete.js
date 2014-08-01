@@ -11,7 +11,8 @@ app.directive('autocomplete', function() {
       searchParam: '=ngModel',
       suggestions: '=data',
       onType: '=onType',
-      onSelect: '=onSelect'
+      onSelect: '=onSelect',
+      delay: '=?'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -21,6 +22,10 @@ app.directive('autocomplete', function() {
       $scope.setIndex = function(i){
         $scope.selectedIndex = parseInt(i);
       };
+
+      if (!$scope.delay) {
+          console.log('undefined')
+      }
 
       this.setIndex = function(i){
         $scope.setIndex(i);
