@@ -24,12 +24,10 @@ app.directive('autocomplete', function() {
         $scope.selectedIndex = parseInt(i);
       };
 
-      // default on-type-delay is 0
-      $scope.pause = 0
 
-      // if an on-type-delay is defined, assign its value to pause
-      if ($scope.onTypeDelay) {
-          $scope.pause = $scope.onTypeDelay
+      // if an on-type-delay is undefined, set default to 0
+      if (!$scope.onTypeDelay) {
+          $scope.onTypeDelay = 0
       }
 
       this.setIndex = function(i){
@@ -63,7 +61,7 @@ app.directive('autocomplete', function() {
         if($scope.onType)
           setTimeout(function() {
               $scope.onType($scope.searchParam);
-          },$scope.pause);
+          },$scope.onTypeDelay);
       });
 
       // for hovering over suggestions
