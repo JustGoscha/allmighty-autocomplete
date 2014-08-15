@@ -198,8 +198,16 @@ app.directive('autocomplete', function() {
 
             index = scope.getIndex();
             // scope.preSelectOff();
-            if(index !== -1)
+            if(index !== -1) {
               scope.select(angular.element(angular.element(this).find('li')[index]).text());
+              if(keycode == key.enter) {
+                e.preventDefault();
+              }
+            } else {
+              if(keycode == key.enter) {
+                scope.select();
+              }
+            }
             scope.setIndex(-1);
             scope.$apply();
 
@@ -215,8 +223,6 @@ app.directive('autocomplete', function() {
             return;
         }
 
-        if(scope.getIndex()!==-1 || keycode == key.enter)
-          e.preventDefault();
       });
     },
     template: '\
