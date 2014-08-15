@@ -43,7 +43,7 @@ app.directive('autocomplete', function() {
           return;
         }
 
-        if(watching && $scope.searchParam) {
+        if(watching && typeof $scope.searchParam !== 'undefined' && $scope.searchParam !== null) {
           $scope.completing = true;
           $scope.searchFilter = $scope.searchParam;
           $scope.selectedIndex = -1;
