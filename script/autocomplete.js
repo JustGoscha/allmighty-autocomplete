@@ -39,7 +39,8 @@ app.directive('autocomplete', function() {
 
       // starts autocompleting on typing in something
       $scope.$watch('searchParam', function(newValue, oldValue){
-        if (oldValue === newValue) {
+
+        if (oldValue === newValue || !oldValue) {
           return;
         }
 
@@ -233,7 +234,7 @@ app.directive('autocomplete', function() {
             placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"/>\
-          <ul ng-show="completing">\
+          <ul ng-show="completing && suggestions.length>0">\
             <li\
               suggestion\
               ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
