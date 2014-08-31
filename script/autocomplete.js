@@ -124,7 +124,7 @@ app.directive('autocomplete', function() {
         };
       }
 
-      var key = {left: 37, up: 38, right: 39, down: 40 , enter: 13, esc: 27};
+      var key = {left: 37, up: 38, right: 39, down: 40 , enter: 13, esc: 27, tab: 9};
 
       document.addEventListener("keydown", function(e){
         var keycode = e.keyCode || e.which;
@@ -196,6 +196,7 @@ app.directive('autocomplete', function() {
             break;
           case key.right:
           case key.enter:
+          case key.tab:
 
             index = scope.getIndex();
             // scope.preSelectOff();
