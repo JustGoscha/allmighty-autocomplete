@@ -11,5 +11,5 @@
     "angularjs"
   ],
   "license": "MIT",
-  "main": ["./script/autocomplete.js", "./script/autocomplete.js"]
+  "main": ["./script/autocomplete.js"]
 }
