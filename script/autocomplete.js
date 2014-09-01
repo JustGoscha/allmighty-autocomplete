@@ -11,7 +11,9 @@ app.directive('autocomplete', function() {
       searchParam: '=ngModel',
       suggestions: '=data',
       onType: '=onType',
+      onTypeDelay: '=?',
       onSelect: '=onSelect'
+
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -21,6 +23,12 @@ app.directive('autocomplete', function() {
       $scope.setIndex = function(i){
         $scope.selectedIndex = parseInt(i);
       };
+
+
+      // if an on-type-delay is undefined, set default to 0
+      if (!$scope.onTypeDelay) {
+          $scope.onTypeDelay = 0
+      }
 
       this.setIndex = function(i){
         $scope.setIndex(i);
@@ -43,7 +51,6 @@ app.directive('autocomplete', function() {
         if (oldValue === newValue || !oldValue) {
           return;
         }
-
         if(watching && $scope.searchParam) {
           $scope.completing = true;
           $scope.searchFilter = $scope.searchParam;
@@ -51,8 +58,11 @@ app.directive('autocomplete', function() {
         }
 
         // function thats passed to on-type attribute gets executed
+        // added on-type-delay
         if($scope.onType)
-          $scope.onType($scope.searchParam);
+          setTimeout(function() {
+              $scope.onType($scope.searchParam);
+          },$scope.onTypeDelay);
       });
 
       // for hovering over suggestions
