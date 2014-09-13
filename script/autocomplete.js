@@ -10,12 +10,18 @@ app.directive('autocomplete', function() {
     scope: {
       searchParam: '=ngModel',
       suggestions: '=data',
+      limit: '=?',
       onType: '=onType',
       onSelect: '=onSelect'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
       $scope.selectedIndex = -1;
+
+      // set default limit of suggestions when undefined
+      if(!$scope.limit) {
+        $scope.limit = Infinity;
+      }
 
       // set new index
       $scope.setIndex = function(i){
@@ -50,7 +56,7 @@ app.directive('autocomplete', function() {
           $scope.selectedIndex = -1;
         }
 
-        // function thats passed to on-type attribute gets executed
+      // function thats passed to on-type attribute gets executed
         if($scope.onType)
           $scope.onType($scope.searchParam);
       });
@@ -238,7 +244,7 @@ app.directive('autocomplete', function() {
           <ul ng-show="completing && suggestions.length>0">\
             <li\
               suggestion\
-              ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
+              ng-repeat="suggestion in suggestions | filter:searchFilter | limitTo:limit | orderBy:\'toString()\' track by $index"\
               index="{{ $index }}"\
               val="{{ suggestion }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
