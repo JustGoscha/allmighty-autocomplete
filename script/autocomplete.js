@@ -17,6 +17,8 @@ app.directive('autocomplete', function() {
       // the index of the suggestions that's currently selected
       $scope.selectedIndex = -1;
 
+      $scope.initLock = true;
+
       // set new index
       $scope.setIndex = function(i){
         $scope.selectedIndex = parseInt(i);
@@ -40,7 +42,7 @@ app.directive('autocomplete', function() {
       // starts autocompleting on typing in something
       $scope.$watch('searchParam', function(newValue, oldValue){
 
-        if (oldValue === newValue || !oldValue) {
+        if (oldValue === newValue || (!oldValue && $scope.initLock)) {
           return;
         }
 
@@ -94,6 +96,11 @@ app.directive('autocomplete', function() {
 
     }],
     link: function(scope, element, attrs){
+
+      setTimeout(function() {
+        scope.initLock = false;
+        scope.$apply();
+      }, 250);
 
       var attr = '';
 
