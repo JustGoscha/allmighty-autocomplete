@@ -118,8 +118,10 @@ app.directive('autocomplete', function() {
       if (attrs.clickActivation) {
         element[0].onclick = function(e){
           if(!scope.searchParam){
-            scope.completing = true;
-            scope.$apply();
+            setTimeout(function() {
+              scope.completing = true;
+              scope.$apply();
+            }, 200);
           }
         };
       }
@@ -146,7 +148,7 @@ app.directive('autocomplete', function() {
           scope.select();
           scope.setIndex(-1);
           scope.$apply();
-        }, 200);
+        }, 150);
       }, true);
 
       element[0].addEventListener("keydown",function (e){
