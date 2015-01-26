@@ -6,7 +6,7 @@ app.directive('autocomplete', function() {
   var index = -1;
 
   return {
-    restrict: 'E',
+    restrict: 'EA',
     scope: {
       searchParam: '=ngModel',
       suggestions: '=data',
