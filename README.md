@@ -60,6 +60,8 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `attr-input-class`: *(optional)* Set the class of the `input` element, allowing you to style the input field directly.
 
+`attr-input-name`: *(optional)* Set the name attribute of the `input` element
+
 `attr-input-id`: *(optional)* Change the id of the `input` element, see `attrs-input-class`.
 
 `autocomplete-required`: *(optional)* This attribute provides value for an `ng-required` attribute on the directive's `input` field.
