@@ -118,7 +118,7 @@ app.directive('autocomplete', function() {
         attr = a.replace('attr', '').toLowerCase();
         // add attribute overriding defaults
         // and preventing duplication
-        if (a.indexOf('attr') === 0) {
+        if (a.indexOf('attr') === -1) {
           scope.attrs[attr] = attrs[a];
         }
       }
