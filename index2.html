@@ -1,0 +1,45 @@
+<html ng-app="app">
+<head>
+    <title>Autocomplete Demo</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/autocomplete.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+
+</head>
+<body>
+
+<header>
+    <h1><span class="thin">AngularJS:</span> Allmighty-Autocomplete Demo</h1>
+</header>
+
+
+<div ng-controller="MyCtrl">
+    <div class="main">
+        <h2>Search for new released movies:</h2>
+        <autocomplete ng-model="result" attr-placeholder="type to search movies..." click-activation="true"
+                      data="moviesByGenre" on-type="doSomething2" on-select="doSomethingElse2"></autocomplete>
+        <br>
+
+        <div class="description">
+            This is a simple autocomplete directive for AngularJS, packaged in a Angular module. You can check out the
+            source code or download it here:
+            <br><br>
+            <a href="https://github.com/JustGoscha/allmighty-autocomplete">Allmigty-Autocomplete on GitHub</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+<footer>
+    made by <a href="http://github.com/justgoscha">justGoscha</a>
+</footer>
+
+
+<script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+<script type="text/javascript" src="script/autocomplete.js"></script>
+<script type="text/javascript" src="script/app.js"></script>
+
+</body>
+</html>
