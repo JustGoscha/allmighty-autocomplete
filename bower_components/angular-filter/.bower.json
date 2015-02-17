@@ -1,0 +1,40 @@
+{
+  "name": "angular-filter",
+  "version": "0.5.3",
+  "main": "dist/angular-filter.js",
+  "description": "Bunch of useful filters for angularJS(with no external dependencies!)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a8m/angular-filter.git"
+  },
+  "dependencies": {
+    "angular": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "*"
+  },
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "package.json",
+    "lib",
+    "test",
+    "src",
+    "Gruntfile.js",
+    ".gitignore",
+    "README.md",
+    "travis.yml",
+    ".bowercc"
+  ],
+  "homepage": "https://github.com/a8m/angular-filter",
+  "_release": "0.5.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.5.3",
+    "commit": "e3c0050da8af623de846ab27e610653be6f9b216"
+  },
+  "_source": "git://github.com/a8m/angular-filter.git",
+  "_target": "~0.5.3",
+  "_originalSource": "angular-filter",
+  "_direct": true
+}
