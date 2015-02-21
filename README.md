@@ -64,6 +64,8 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `autocomplete-required`: *(optional)* This attribute provides value for an `ng-required` attribute on the directive's `input` field.
 
+`disable-filter`: *(optional)* When `true` it will not filter the results from the list of suggestions, showing all the elements in the list. Default `false`.
+
 ## Example
 
 HTML:
