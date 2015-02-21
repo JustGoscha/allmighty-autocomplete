@@ -12,7 +12,8 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
-      autocompleteRequired: '='
+      autocompleteRequired: '=',
+      disableFilter: '=disableFilter'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -49,7 +50,7 @@ app.directive('autocomplete', function() {
 
         if(watching && typeof $scope.searchParam !== 'undefined' && $scope.searchParam !== null) {
           $scope.completing = true;
-          $scope.searchFilter = $scope.searchParam;
+          $scope.searchFilter = $scope.disableFilter ? '' : $scope.searchParam;
           $scope.selectedIndex = -1;
         }
 
