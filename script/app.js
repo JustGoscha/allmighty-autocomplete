@@ -14,10 +14,6 @@ app.factory('MovieRetriever', function($http, $q, $timeout){
 
     movies = moreMovies;
 
-    movies = movies.map(function(movie){
-      return {name: movie, duration: 160};
-    });
-
     $timeout(function(){
       moviedata.resolve(movies);
     },1000);
@@ -47,16 +43,8 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
     });
   }
 
-  /**
-   * Use this function to convert the suggested object into a suggestion string to insert into the inner text of the <li>
-   * @return {string} The suggestion to print
-   */
-  $scope.renderResult = function(objSuggestion){
-    return objSuggestion.name + ' ('+objSuggestion.duration+' min)';
-  };
-
   $scope.doSomethingElse = function(suggestion){
-    console.log("Suggestion selected: " + JSON.stringify(suggestion) );
+    console.log("Suggestion selected: " + suggestion );
   }
 
 });

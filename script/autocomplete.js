@@ -106,12 +106,6 @@ app.directive('autocomplete', function() {
         };
       }
 
-      /*
-      $scope.getUniqueId = function(){
-        var alphabet = 'abcdefghikjlmnopqrstuvwzyx0123456789';
-        return alphabet.split('').shuffle().slice(-12).join('');
-      };*/
-
       //Every time the suggestions collection changes, it will wrap the elements into the wrappedSuggestions:
       $scope.wrappedSuggestions = [];
       $scope.$watchCollection('suggestions', function(newSuggestions){
@@ -122,7 +116,6 @@ app.directive('autocomplete', function() {
               data: suggestion
             };
           });
-          console.log('wrappedSuggestions defined');
         }
       });
 
