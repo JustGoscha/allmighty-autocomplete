@@ -300,8 +300,19 @@ app.filter('myFilter', function($filter){
     if(wrappedSuggestions instanceof Array){
       searchFilter = searchFilter || '';
       return wrappedSuggestions.filter(function(wrappedSuggestion){
-        var searchFilterLower = searchFilter.toLowerCase();
-        return wrappedSuggestion.text.toLowerCase().indexOf(searchFilterLower) !== -1;
+        var escapeRegexp = function(text) {
+          return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        };
+        var words = searchFilter.replace(/\ +/g, ' ').split(/\ /g);
+        var escapedWords = words.map(escapeRegexp); //Make sure non alphanumeric characters are escaped properly before constructing the regexp
+        //It will detect if all the words of the search are present in the suggestion, no matter the order, nor the case:
+        var pattern = '';
+        escapedWords.forEach(function(escapedWord){
+          pattern += '(?=.*'+escapedWord+')';
+        });
+        var rePattern = new RegExp(pattern, 'gi');
+        var suggestion = wrappedSuggestion.text;
+        return rePattern.test(suggestion);
       });
     }
   };
@@ -312,15 +323,17 @@ app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
-      //Create a dynamic regexp to find the searchParam in the text within multiple words:
-      //Some charachters need to be scaped before using them in a regular expression definition:
+      //Hightlight the words or semiwords that are present in both the search and the suggestion:
       var escapeRegexp = function(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
       };
-      searchParamEscaped = escapeRegexp(searchParam);
-      var wordsPattern = '(' + searchParamEscaped.split(/\ /).join(' |') + '|' + searchParamEscaped.split(/\ /).join('|') + ')';
-      var exp = new RegExp(wordsPattern, 'gi');
-      input = input.replace(exp, "<span class=\"highlight\">$1</span>");
+      var words = searchParam.replace(/\ +/g, ' ').split(/\ /g);
+      var escapedWords = words.map(escapeRegexp); //Make sure non alphanumeric characters are escaped properly before constructing the regexp
+      escapedWords.forEach(function(escapedWord){
+        var wordPattern = '(?!<span[^>]*?>)('+escapedWord+')(?![^<]*?<\/span>)'; //Match the escapedWord only if it's not already wrapped within span tags
+        var wordRegexp = new RegExp(wordPattern, 'gi');
+        input = input.replace(wordRegexp, "<span class=\"highlight\">$1</span>");
+      });
     }
     return $sce.trustAsHtml(input);
   };
