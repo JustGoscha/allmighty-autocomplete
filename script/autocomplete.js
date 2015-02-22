@@ -12,6 +12,7 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
+      render: '=render',
       autocompleteRequired: '='
     },
     controller: ['$scope', function($scope){
@@ -83,10 +84,10 @@ app.directive('autocomplete', function() {
       // selecting a suggestion with RIGHT ARROW or ENTER
       $scope.select = function(suggestion){
         if(suggestion){
-          $scope.searchParam = suggestion;
-          $scope.searchFilter = suggestion;
+          $scope.searchParam = suggestion.text;
+          $scope.searchFilter = suggestion.text;
           if($scope.onSelect)
-            $scope.onSelect(suggestion);
+            $scope.onSelect(suggestion.data);
         }
         watching = false;
         $scope.completing = false;
@@ -94,6 +95,36 @@ app.directive('autocomplete', function() {
         $scope.setIndex(-1);
       };
 
+      //Default render function will just output the input string:
+      if(typeof $scope.render !== 'function'){
+        $scope.render = function(suggestion){
+          if(typeof suggestion !== 'string'){ //User is trying to store objects instead of strings, so the function should be already defined by the user and binded in the `render` attribute
+            console.error('render function must be defined when using data object suggestions');
+            return '';
+          }
+          return suggestion;
+        };
+      }
+
+      /*
+      $scope.getUniqueId = function(){
+        var alphabet = 'abcdefghikjlmnopqrstuvwzyx0123456789';
+        return alphabet.split('').shuffle().slice(-12).join('');
+      };*/
+
+      //Every time the suggestions collection changes, it will wrap the elements into the wrappedSuggestions:
+      $scope.wrappedSuggestions = [];
+      $scope.$watchCollection('suggestions', function(newSuggestions){
+        if(newSuggestions instanceof Array){
+          $scope.wrappedSuggestions = newSuggestions.map(function(suggestion){
+            return {
+              text: $scope.render(suggestion),
+              data: suggestion
+            };
+          });
+          console.log('wrappedSuggestions defined');
+        }
+      });
 
     }],
     link: function(scope, element, attrs){
@@ -249,32 +280,47 @@ app.directive('autocomplete', function() {
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
             ng-required="{{ autocompleteRequired }}" />\
-          <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
+          <ul ng-show="completing && (wrappedSuggestions | myFilter:searchFilter).length > 0">\
             <li\
               suggestion\
-              ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
+              ng-repeat="wrappedSuggestion in wrappedSuggestions | myFilter:searchFilter | orderBy:\'text\' track by $index"\
               index="{{ $index }}"\
-              val="{{ suggestion }}"\
+              val="{{ wrappedSuggestion.text }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
-              ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-click="select(wrappedSuggestion)"\
+              ng-bind-html="wrappedSuggestion.text | highlight:searchParam"></li>\
           </ul>\
         </div>'
   };
 });
 
+
+app.filter('myFilter', function($filter){
+  return function(wrappedSuggestions, searchFilter){
+    if(wrappedSuggestions instanceof Array){
+      searchFilter = searchFilter || '';
+      return wrappedSuggestions.filter(function(wrappedSuggestion){
+        var searchFilterLower = searchFilter.toLowerCase();
+        return wrappedSuggestion.text.toLowerCase().indexOf(searchFilterLower) !== -1;
+      });
+    }
+  };
+});
+
+
 app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
-      var words = '(' +
-            searchParam.split(/\ /).join(' |') + '|' +
-            searchParam.split(/\ /).join('|') +
-          ')',
-          exp = new RegExp(words, 'gi');
-      if (words.length) {
-        input = input.replace(exp, "<span class=\"highlight\">$1</span>");
-      }
+      //Create a dynamic regexp to find the searchParam in the text within multiple words:
+      //Some charachters need to be scaped before using them in a regular expression definition:
+      var escapeRegexp = function(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+      };
+      searchParamEscaped = escapeRegexp(searchParam);
+      var wordsPattern = '(' + searchParamEscaped.split(/\ /).join(' |') + '|' + searchParamEscaped.split(/\ /).join('|') + ')';
+      var exp = new RegExp(wordsPattern, 'gi');
+      input = input.replace(exp, "<span class=\"highlight\">$1</span>");
     }
     return $sce.trustAsHtml(input);
   };
