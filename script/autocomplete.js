@@ -95,24 +95,24 @@ app.directive('autocomplete', function() {
         $scope.setIndex(-1);
       };
 
-      //Default render function will just output the input string:
-      if(typeof $scope.render !== 'function'){
-        $scope.render = function(suggestion){
-          if(typeof suggestion !== 'string'){ //User is trying to store objects instead of strings, so the function should be already defined by the user and binded in the `render` attribute
-            console.error('render function must be defined when using data object suggestions');
-            return '';
-          }
-          return suggestion;
-        };
-      }
-
       //Every time the suggestions collection changes, it will wrap the elements into the wrappedSuggestions:
       $scope.wrappedSuggestions = [];
       $scope.$watchCollection('suggestions', function(newSuggestions){
         if(newSuggestions instanceof Array){
           $scope.wrappedSuggestions = newSuggestions.map(function(suggestion){
+            var renderedText;
+            if(typeof $scope.render === 'function'){
+              renderedText = $scope.render(suggestion);
+            }
+            else if(typeof suggestion !== 'string'){
+              console.error('render function must be defined when using data object suggestions');
+              renderedText = '';
+            }
+            else{
+              renderedText = suggestion;
+            }
             return {
-              text: $scope.render(suggestion),
+              text: renderedText,
               data: suggestion
             };
           });
