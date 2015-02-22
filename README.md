@@ -46,7 +46,9 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `on-type` : *(optional)* Pass a function that will receive changes, when somebody types something. It passes the full string for any character typed or deleted. You can use that for example to update the array that you passed in data.
 
-`on-select` : *(optional)* Pass a function that will receive changes, when a suggestion is selected. It passes the full string of the suggestion.
+`on-select` : *(optional)* Pass a function that will receive changes, when a suggestion is selected. It passes the full string of the suggestion, or the object defined as the suggestion in case you define the suggestions as an array of objects.
+
+`render` : *(optional)* You can use data objects instead of strings to populate the suggestions array. You only have to assign an array of objects to the suggestions collection, and then define a render function that will be used to convert these objects into strings in order for the autocomplete to print them in the list. You can retrieve these objects as the first parameter in the on-select listener. If you use string suggestions you don't have to define this render function but only if you are using data objects as suggestions.
 
 `click-activation` : *(optional)* When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
