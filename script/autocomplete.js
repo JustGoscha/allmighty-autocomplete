@@ -12,6 +12,7 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
+      render: '=render',
       autocompleteRequired: '='
     },
     controller: ['$scope', function($scope){
@@ -83,10 +84,10 @@ app.directive('autocomplete', function() {
       // selecting a suggestion with RIGHT ARROW or ENTER
       $scope.select = function(suggestion){
         if(suggestion){
-          $scope.searchParam = suggestion;
-          $scope.searchFilter = suggestion;
+          $scope.searchParam = suggestion.text;
+          $scope.searchFilter = suggestion.text;
           if($scope.onSelect)
-            $scope.onSelect(suggestion);
+            $scope.onSelect(suggestion.data);
         }
         watching = false;
         $scope.completing = false;
@@ -94,6 +95,30 @@ app.directive('autocomplete', function() {
         $scope.setIndex(-1);
       };
 
+      //Every time the suggestions collection changes, it will wrap the elements into the wrappedSuggestions:
+      $scope.wrappedSuggestions = [];
+      $scope.$watchCollection('suggestions', function(newSuggestions){
+        if(newSuggestions instanceof Array){
+          $scope.wrappedSuggestions = newSuggestions.map(function(suggestion, counterIndex){
+            var renderedText;
+            if(typeof $scope.render === 'function'){
+              renderedText = $scope.render(suggestion);
+            }
+            else if(typeof suggestion !== 'string'){
+              console.error('render function must be defined when using data object suggestions');
+              renderedText = '';
+            }
+            else{
+              renderedText = suggestion;
+            }
+            return {
+              text: renderedText,
+              data: suggestion,
+              _id: ''+(counterIndex+1)
+            };
+          });
+        }
+      });
 
     }],
     link: function(scope, element, attrs){
@@ -214,7 +239,12 @@ app.directive('autocomplete', function() {
             index = scope.getIndex();
             // scope.preSelectOff();
             if(index !== -1) {
-              scope.select(angular.element(angular.element(this).find('li')[index]).text());
+              var jLiElement = angular.element(angular.element(this).find('li')[index]);
+              var suggestionId = jLiElement.attr('data-suggestion-id');
+              var suggestion = scope.wrappedSuggestions.filter(function(wrappedSuggestion){
+                return suggestionId == wrappedSuggestion._id;
+              })[0];
+              scope.select(suggestion);
               if(keycode == key.enter) {
                 e.preventDefault();
               }
@@ -249,32 +279,61 @@ app.directive('autocomplete', function() {
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
             ng-required="{{ autocompleteRequired }}" />\
-          <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
+          <ul ng-show="completing && (wrappedSuggestions | myFilter:searchFilter).length > 0">\
             <li\
               suggestion\
-              ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
+              ng-repeat="wrappedSuggestion in wrappedSuggestions | myFilter:searchFilter | orderBy:\'text\' track by $index"\
               index="{{ $index }}"\
-              val="{{ suggestion }}"\
+              val="{{ wrappedSuggestion.text }}"\
+              data-suggestion-id="{{ wrappedSuggestion._id }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
-              ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-click="select(wrappedSuggestion)"\
+              ng-bind-html="wrappedSuggestion.text | highlight:searchParam"></li>\
           </ul>\
         </div>'
   };
 });
 
+
+app.filter('myFilter', function($filter){
+  return function(wrappedSuggestions, searchFilter){
+    if(wrappedSuggestions instanceof Array){
+      searchFilter = searchFilter || '';
+      return wrappedSuggestions.filter(function(wrappedSuggestion){
+        var escapeRegexp = function(text) {
+          return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        };
+        var words = searchFilter.replace(/\ +/g, ' ').split(/\ /g);
+        var escapedWords = words.map(escapeRegexp); //Make sure non alphanumeric characters are escaped properly before constructing the regexp
+        //It will detect if all the words of the search are present in the suggestion, no matter the order, nor the case:
+        var pattern = '';
+        escapedWords.forEach(function(escapedWord){
+          pattern += '(?=.*'+escapedWord+')';
+        });
+        var rePattern = new RegExp(pattern, 'gi');
+        var suggestion = wrappedSuggestion.text;
+        return rePattern.test(suggestion);
+      });
+    }
+  };
+});
+
+
 app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
-      var words = '(' +
-            searchParam.split(/\ /).join(' |') + '|' +
-            searchParam.split(/\ /).join('|') +
-          ')',
-          exp = new RegExp(words, 'gi');
-      if (words.length) {
-        input = input.replace(exp, "<span class=\"highlight\">$1</span>");
-      }
+      //Hightlight the words or semiwords that are present in both the search and the suggestion:
+      var escapeRegexp = function(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+      };
+      var words = searchParam.replace(/\ +/g, ' ').split(/\ /g);
+      var escapedWords = words.map(escapeRegexp); //Make sure non alphanumeric characters are escaped properly before constructing the regexp
+      escapedWords.forEach(function(escapedWord){
+        var wordPattern = '(?!<span[^>]*?>)('+escapedWord+')(?![^<]*?<\/span>)(?=[^>]*(<|$))'; //Match the escapedWord only if it's not already wrapped within span tags, and it's not part of an html attribute or tag name (from previous insertions of span tags into the input)
+        var wordRegexp = new RegExp(wordPattern, 'gi');
+        input = input.replace(wordRegexp, "<span class=\"highlight\">$1</span>");
+      });
     }
     return $sce.trustAsHtml(input);
   };
