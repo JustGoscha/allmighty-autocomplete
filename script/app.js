@@ -20,7 +20,7 @@ app.factory('MovieRetriever', function($http, $q, $timeout){
     },1000);
 
     return moviedata.promise
-  }
+  };
 
   return MovieRetriever;
 });
@@ -34,7 +34,7 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
 
   $scope.getmovies = function(){
     return $scope.movies;
-  }
+  };
 
   $scope.doSomething = function(typedthings){
     console.log("Do something like reload data with this: " + typedthings );
@@ -42,7 +42,7 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
     $scope.newmovies.then(function(data){
       $scope.movies = data;
     });
-  }
+  };
 
   $scope.doSomethingElse = function(suggestion){
     console.log("Suggestion selected: " + suggestion );
