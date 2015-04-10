@@ -111,7 +111,8 @@ app.directive('autocomplete', function() {
         "class": "",
         "id": "",
         "inputclass": "",
-        "inputid": ""
+        "inputid": "",
+        "limit": 10
       };
 
       for (var a in attrs) {
@@ -252,7 +253,7 @@ app.directive('autocomplete', function() {
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\
-              ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
+              ng-repeat="suggestion in suggestions | filter:searchFilter | limitTo:attrs.limit | orderBy:\'toString()\' track by $index"\
               index="{{ $index }}"\
               val="{{ suggestion }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
