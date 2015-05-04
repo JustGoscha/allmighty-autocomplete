@@ -12,7 +12,8 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
-      autocompleteRequired: '='
+      autocompleteRequired: '=',
+      item: '=item'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -83,7 +84,10 @@ app.directive('autocomplete', function() {
       // selecting a suggestion with RIGHT ARROW or ENTER
       $scope.select = function(suggestion){
         if(suggestion){
-          $scope.searchParam = suggestion;
+          if ($scope.attrs.item !== "")
+            $scope.searchParam = suggestion[$scope.attrs.item];
+          else
+            $scope.searchParam = suggestion;
           $scope.searchFilter = suggestion;
           if($scope.onSelect)
             $scope.onSelect(suggestion);
@@ -111,7 +115,8 @@ app.directive('autocomplete', function() {
         "class": "",
         "id": "",
         "inputclass": "",
-        "inputid": ""
+        "inputid": "",
+        "item": ""
       };
 
       for (var a in attrs) {
@@ -257,24 +262,30 @@ app.directive('autocomplete', function() {
               val="{{ suggestion }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
               ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-bind-html="suggestion | highlight:searchParam:attrs.item"></li>\
           </ul>\
         </div>'
   };
 });
 
 app.filter('highlight', ['$sce', function ($sce) {
-  return function (input, searchParam) {
+  return function (input, searchParam, item) {
     if (typeof input === 'function') return '';
-    if (searchParam) {
+    if (searchParam !== "") {
       var words = '(' +
             searchParam.split(/\ /).join(' |') + '|' +
             searchParam.split(/\ /).join('|') +
           ')',
           exp = new RegExp(words, 'gi');
       if (words.length) {
-        input = input.replace(exp, "<span class=\"highlight\">$1</span>");
+        if (item !== "")
+          input = input[item].replace(exp, "<span class=\"highlight\">$1</span>");
+        else
+          input = input.replace(exp, "<span class=\"highlight\">$1</span>");
       }
+    }
+    else {
+      return '';
     }
     return $sce.trustAsHtml(input);
   };
