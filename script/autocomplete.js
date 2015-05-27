@@ -246,7 +246,6 @@ app.directive('autocomplete', function() {
           <input\
             type="text"\
             ng-model="searchParam"\
-            placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
             ng-required="{{ autocompleteRequired }}" />\
