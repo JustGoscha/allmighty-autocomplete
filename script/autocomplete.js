@@ -111,7 +111,8 @@ app.directive('autocomplete', function() {
         "class": "",
         "id": "",
         "inputclass": "",
-        "inputid": ""
+        "inputid": "",
+		"text":""
       };
 
       for (var a in attrs) {
@@ -215,6 +216,7 @@ app.directive('autocomplete', function() {
             // scope.preSelectOff();
             if(index !== -1) {
               scope.select(angular.element(angular.element(this).find('li')[index]).text());
+			  scope.attrs.text = angular.element(angular.element(this).find('li')[index]).text();
               if(keycode == key.enter) {
                 e.preventDefault();
               }
@@ -248,7 +250,7 @@ app.directive('autocomplete', function() {
             placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
-            ng-required="{{ autocompleteRequired }}" />\
+            ng-required="{{ autocompleteRequired }}" value="{{attrs.text }}" />\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\
