@@ -12,11 +12,15 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
-      autocompleteRequired: '='
+      autocompleteRequired: '=',
+      selectedIndex: '='
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
-      $scope.selectedIndex = -1;
+      if(!$scope.selectedIndex)
+      {
+        $scope.selectedIndex = -1;
+      }
 
       $scope.initLock = true;
 
