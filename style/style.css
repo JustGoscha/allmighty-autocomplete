@@ -24,6 +24,15 @@ a:hover{
   transition: 0.1s all ease-in-out;
 }
 
+.main button {
+  padding: 8px 16px;
+  font-size: 1.2em;
+  background: #eee;
+  border: 1px solid #999;
+  color: #444;
+  margin: 20px;
+}
+
 body{
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	min-height:100%;

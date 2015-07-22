@@ -38,6 +38,10 @@ app.controller('MyCtrl', function($scope, MovieRetriever){
     return $scope.movies;
   }
 
+  $scope.clearSearch = function() {
+    $scope.result = '';
+  };
+
   $scope.doSomething = function(typedthings){
     console.log("Do something like reload data with this: " + typedthings );
     $scope.newmovies = MovieRetriever.getmovies(typedthings);
