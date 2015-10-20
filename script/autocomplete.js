@@ -12,7 +12,8 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
-      autocompleteRequired: '='
+      autocompleteRequired: '=',
+      inputName: '@'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -248,7 +249,8 @@ app.directive('autocomplete', function() {
             placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
-            ng-required="{{ autocompleteRequired }}" />\
+            ng-required="{{ autocompleteRequired }}"\
+            name="{{inputName}}" />\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\
