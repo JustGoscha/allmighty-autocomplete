@@ -64,6 +64,8 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `autocomplete-required`: *(optional)* This attribute provides value for an `ng-required` attribute on the directive's `input` field.
 
+`no-auto-sort`: *(optional)* This attribute prevent the library to sort the data by alphabetical order.
+
 ## Example
 
 HTML:
