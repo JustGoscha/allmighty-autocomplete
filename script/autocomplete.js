@@ -271,6 +271,9 @@ app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
+      // Sanitize searchParams for regexp
+      searchParam = searchParam.replace('/[-\\.,_*+?^$[\](){}!=|]//g', '');
+
       var words = '(' +
             searchParam.split(/\ /).join(' |') + '|' +
             searchParam.split(/\ /).join('|') +
