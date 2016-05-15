@@ -273,7 +273,7 @@ app.filter('highlight', ['$sce', function ($sce) {
     if (searchParam) {
       // Sanitize searchParams for regexp
       // From: http://stackoverflow.com/questions/6300183/sanitize-string-of-regex-characters-before-regexp-build
-      searchParam = searchParam.replace('/[-\\.,_*+?^$[\](){}!=|]//g', '');
+      searchParam = searchParam.replace(/[-\\.,_*+?^$[\](){}!=|]/g, '');
 
       var words = '(' +
             searchParam.split(/\ /).join(' |') + '|' +
