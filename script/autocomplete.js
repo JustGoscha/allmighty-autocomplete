@@ -12,7 +12,9 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
-      autocompleteRequired: '='
+      autocompleteRequired: '=',
+      onFocus: '=?',
+      onBlur: '=?'
     },
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
@@ -248,6 +250,8 @@ app.directive('autocomplete', function() {
             placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             id="{{ attrs.inputid }}"\
+            ng-focus="onFocus()"\
+            ng-blur="onBlur()"\
             ng-required="{{ autocompleteRequired }}" />\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
@@ -267,6 +271,10 @@ app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
+      // Sanitize searchParams for regexp
+      // From: http://stackoverflow.com/questions/6300183/sanitize-string-of-regex-characters-before-regexp-build
+      searchParam = searchParam.replace(/[-\\.,_*+?^$[\](){}!=|]/g, '');
+
       var words = '(' +
             searchParam.split(/\ /).join(' |') + '|' +
             searchParam.split(/\ /).join('|') +
