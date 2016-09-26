@@ -12,5 +12,8 @@
     "angularjs"
   ],
   "license": "MIT",
-  "main": ["./script/autocomplete.js", "./style/autocomplete.css"]
+  "main": ["./script/autocomplete.js", "./style/autocomplete.css"],
+  "dependencies": {
+    "angular": ">1.0.0"
+  }
 }
