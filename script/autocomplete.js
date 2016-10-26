@@ -244,10 +244,10 @@ app.directive('autocomplete', function() {
     },
     template: '\
         <div class="autocomplete {{ attrs.class }}" id="{{ attrs.id }}">\
+          <label for="{{ attrs.inputid }}">{{ attrs.label }}</label>\
           <input\
             type="text"\
             ng-model="searchParam"\
-            placeholder="{{ attrs.placeholder }}"\
             class="{{ attrs.inputclass }}"\
             tabindex="{{ attrs.tabindex }}"\
             id="{{ attrs.inputid }}"\
