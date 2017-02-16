@@ -15,6 +15,7 @@ app.directive('autocomplete', function() {
       autocompleteRequired: '=',
       noAutoSort: '=noAutoSort'
     },
+    replace:true,
     controller: ['$scope', function($scope){
       // the index of the suggestions that's currently selected
       $scope.selectedIndex = -1;
