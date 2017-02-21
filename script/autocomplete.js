@@ -8,12 +8,13 @@ app.directive('autocomplete', function() {
   return {
     restrict: 'E',
     scope: {
-      searchParam: '=ngModel',
+      returnValue: '=ngModel',
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
       autocompleteRequired: '=',
-      noAutoSort: '=noAutoSort'
+      noAutoSort: '=noAutoSort',
+      titleFields: '@'
     },
     replace:true,
     controller: ['$scope', function($scope){
@@ -21,6 +22,7 @@ app.directive('autocomplete', function() {
       $scope.selectedIndex = -1;
 
       $scope.initLock = true;
+      $scope.searchParam = '';
 
       // set new index
       $scope.setIndex = function(i){
@@ -84,22 +86,60 @@ app.directive('autocomplete', function() {
 
       // selecting a suggestion with RIGHT ARROW or ENTER
       $scope.select = function(suggestion){
+
         if(suggestion){
+
+          if ($scope.titleFields) {
+
+            $scope.returnValue = suggestion;
+            suggestion = $scope.extractTitle(suggestion);
+
+          } else {
+
+            $scope.returnValue = suggestion;
+          }
+
           $scope.searchParam = suggestion;
           $scope.searchFilter = suggestion;
+
           if($scope.onSelect)
             $scope.onSelect(suggestion);
         }
+
         watching = false;
         $scope.completing = false;
         setTimeout(function(){watching = true;},1000);
         $scope.setIndex(-1);
       };
 
+      // 
+      $scope.extractTitle = function(suggestion){
+
+        if (suggestion !== null && typeof suggestion === 'object') {
+
+          if ($scope.titleFields !== undefined) {
+
+            var prepareTitle = [];
+
+            var titleFields = $scope.titleFields.split(",");
+
+            for (var i = 0; i < titleFields.length; i++) {
+              prepareTitle.push(suggestion[titleFields[i]]);
+            }
+
+            prepareTitle = prepareTitle.join(" ");
+
+            return prepareTitle;
+          }
+        }
+
+        return suggestion;
+
+      };
 
     }],
     link: function(scope, element, attrs){
-        console.log(scope.noAutoSort)
+        // console.log(scope.noAutoSort)
 
       setTimeout(function() {
         scope.initLock = false;
@@ -259,20 +299,20 @@ app.directive('autocomplete', function() {
               suggestion\
               ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
               index="{{ $index }}"\
-              val="{{ suggestion }}"\
+              val="extractTitle(suggestion)"\
               ng-class="{ active: ($index === selectedIndex) }"\
               ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-bind-html="extractTitle(suggestion) | highlight:searchParam"></li>\
           </ul>\
           <ul ng-if="noAutoSort" ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\
               ng-repeat="suggestion in suggestions | filter:searchFilter track by $index"\
               index="{{ $index }}"\
-              val="{{ suggestion }}"\
+              val="extractTitle(suggestion)"\
               ng-class="{ active: ($index === selectedIndex) }"\
               ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-bind-html="extractTitle(suggestion) | highlight:searchParam"></li>\
           </ul>\
         </div>'
   };
