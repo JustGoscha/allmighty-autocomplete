@@ -88,20 +88,14 @@ app.directive('autocomplete', function() {
       $scope.select = function(suggestion){
 
         if(suggestion){
-
           if ($scope.titleFields) {
-
             $scope.returnValue = suggestion;
             suggestion = $scope.extractTitle(suggestion);
-
           } else {
-
             $scope.returnValue = suggestion;
           }
-
           $scope.searchParam = suggestion;
           $scope.searchFilter = suggestion;
-
           if($scope.onSelect)
             $scope.onSelect(suggestion);
         }
@@ -112,29 +106,21 @@ app.directive('autocomplete', function() {
         $scope.setIndex(-1);
       };
 
-      // 
+      // Method serves to extract fields from object
       $scope.extractTitle = function(suggestion){
 
         if (suggestion !== null && typeof suggestion === 'object') {
-
           if ($scope.titleFields !== undefined) {
-
             var prepareTitle = [];
-
             var titleFields = $scope.titleFields.split(",");
-
             for (var i = 0; i < titleFields.length; i++) {
               prepareTitle.push(suggestion[titleFields[i]]);
             }
-
             prepareTitle = prepareTitle.join(" ");
-
             return prepareTitle;
           }
         }
-
         return suggestion;
-
       };
 
     }],
