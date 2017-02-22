@@ -118,8 +118,11 @@ app.directive('autocomplete', function() {
             }
             prepareTitle = prepareTitle.join(" ");
             return prepareTitle;
+          } else {
+            console.log('Attribute "data" contains object, please set "title-fields" as well.');
           }
         }
+
         return suggestion;
       };
 
