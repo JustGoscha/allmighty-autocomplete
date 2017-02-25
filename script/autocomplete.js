@@ -12,6 +12,8 @@ app.directive('autocomplete', function() {
       suggestions: '=data',
       onType: '=onType',
       onSelect: '=onSelect',
+      focus: '&onFocus',
+      blur: '&onBlur',
       autocompleteRequired: '=',
       noAutoSort: '=noAutoSort',
       titleFields: '@'
@@ -282,7 +284,9 @@ app.directive('autocomplete', function() {
             tabindex="{{ attrs.tabindex }}"\
             id="{{ attrs.inputid }}"\
             name="{{ attrs.name }}"\
-            ng-required="{{ autocompleteRequired }}" />\
+            ng-required="{{ autocompleteRequired }}"\
+            ng-focus="focus($event)"\
+            ng-blur="blur($event)" />\
           <ul ng-if="!noAutoSort" ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
               suggestion\

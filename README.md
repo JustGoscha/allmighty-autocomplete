@@ -68,6 +68,10 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `title-fields`: *(optional)* The name of the field in the objects in data that should be used for displaying the title in the autocomplete list. Note, if you want to combine fields together, you can comma separate them here (e.g. for a first and last name combined = firstName,lastName)
 
+`on-focus`: *(optional)* Pass a expression to input's ng-focus.
+
+`on-blur`: *(optional)* Pass a expression to input's ng-blur.
+
 ## Example
 
 HTML:
