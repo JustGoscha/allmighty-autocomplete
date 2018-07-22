@@ -1,6 +1,8 @@
 allmighty-autocomplete
 ======================
 
+## 🚧 Warning! This code is not maintained anymore! 🚧
+
 Simple to use autocomplete directive in a module for AngularJS!
 Supports arrow keys to traverse suggestions as well as mouse input.
 You can load the suggestions from a remote REST API, it also supports promises.
