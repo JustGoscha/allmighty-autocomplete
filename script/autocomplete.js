@@ -281,6 +281,7 @@ app.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
+      searchParam = escapeSpecialCharacters(searchParam);
       var words = '(' +
             searchParam.split(/\ /).join(' |') + '|' +
             searchParam.split(/\ /).join('|') +
@@ -310,3 +311,8 @@ app.directive('suggestion', function(){
     }
   };
 });
+
+// escape characters that may be interpreted as regex expressions
+function escapeSpecialCharacters(string) {
+    return string.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
