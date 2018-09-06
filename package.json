@@ -1,0 +1,18 @@
+{
+	"name": "allmighty-autocomplete",
+	"version": "1.0.0",
+	"description": "allmighty-autocomplete ======================",
+	"homepage": "https://github.com/kucukkanat/allmighty-autocomplete#readme",
+	"bugs": {
+		"url": "https://github.com/kucukkanat/allmighty-autocomplete/issues"
+	},
+	"license": "ISC",
+	"main": "./script/autocomplete.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kucukkanat/allmighty-autocomplete.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	}
+}
