@@ -113,7 +113,8 @@ app.directive('autocomplete', function() {
         "class": "",
         "id": "",
         "inputclass": "",
-        "inputid": ""
+        "inputid": "",
+        "maxlength": ""
       };
 
       for (var a in attrs) {
@@ -251,6 +252,7 @@ app.directive('autocomplete', function() {
             class="{{ attrs.inputclass }}"\
             tabindex="{{ attrs.tabindex }}"\
             id="{{ attrs.inputid }}"\
+            maxlength="{{ attrs.maxlength }}"\
             name="{{ attrs.name }}"\
             ng-required="{{ autocompleteRequired }}" />\
           <ul ng-if="!noAutoSort" ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
