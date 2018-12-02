@@ -68,6 +68,10 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `no-auto-sort`: *(optional)* This attribute prevent the library to sort the data by alphabetical order.
 
+`on-focus`: *(optional)* Pass a expression to input's ng-focus.
+
+`on-blur`: *(optional)* Pass a expression to input's ng-blur.
+
 ## Example
 
 HTML:
