@@ -2,7 +2,7 @@
 
 var app = angular.module('autocomplete', []);
 
-app.directive('autocomplete', function() {
+app.directive('autocomplete', function($timeout) {
   var index = -1;
 
   return {
@@ -91,7 +91,7 @@ app.directive('autocomplete', function() {
         }
         watching = false;
         $scope.completing = false;
-        setTimeout(function(){watching = true;},1000);
+        $timeout(function(){watching = true;},1000);
         $scope.setIndex(-1);
       };
 
@@ -100,7 +100,7 @@ app.directive('autocomplete', function() {
     link: function(scope, element, attrs){
         console.log(scope.noAutoSort)
 
-      setTimeout(function() {
+      $timeout(function() {
         scope.initLock = false;
         scope.$apply();
       }, 250);
@@ -128,7 +128,7 @@ app.directive('autocomplete', function() {
       if (attrs.clickActivation) {
         element[0].onclick = function(e){
           if(!scope.searchParam){
-            setTimeout(function() {
+            $timeout(function() {
               scope.completing = true;
               scope.$apply();
             }, 200);
@@ -154,7 +154,7 @@ app.directive('autocomplete', function() {
       document.addEventListener("blur", function(e){
         // disable suggestions on blur
         // we do a timeout to prevent hiding it before a click event is registered
-        setTimeout(function() {
+        $timeout(function() {
           scope.select();
           scope.setIndex(-1);
           scope.$apply();
