@@ -223,6 +223,9 @@ app.directive('autocomplete', function() {
             } else {
               if(keycode == key.enter) {
                 scope.select();
+                if(scope.onSelect) {
+                  scope.onSelect(scope.searchParam);
+                }
               }
             }
             scope.setIndex(-1);
