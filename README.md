@@ -50,7 +50,7 @@ You can also pass a function that receives changes with the `on-type` attribute.
 
 `on-select` : *(optional)* Pass a function that will receive changes, when a suggestion is selected. It passes the full string of the suggestion.
 
-`click-activation` : *(optional)* When `true`, the suggestion box opens on click (unfortunately onfoucs is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
+`click-activation` : *(optional)* When `true`, the suggestion box opens on click (unfortunately onfocus is not implemented properly in most browsers right now). By default it is only activated, when you start typing something.
 
 `ng-model`: What you typed in will be in this variable and accessible in the $scope of the controller.
 
